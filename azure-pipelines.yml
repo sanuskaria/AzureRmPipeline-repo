@@ -1,0 +1,28 @@
+# Starter pipeline
+# Start with a minimal pipeline that you can customize to build and deploy your code.
+# Add steps that build, run tests, deploy, and more:
+# https://aka.ms/yaml
+- task: AzureResourceManagerTemplateDeployment@3
+  inputs:
+    deploymentScope: 'Resource Group'
+    azureResourceManagerConnection: 'AzureRmPipeline-conn'
+    subscriptionId: '4e270abf-1714-476f-81d4-1eb9fa0e4849'
+    action: 'Create Or Update Resource Group'
+    resourceGroupName: 'AzureRmPipeline-rg'
+    location: 'Central US'
+    templateLocation: 'URL of the file'
+    csmFileLink: 'https://raw.githubusercontent.com/sanuskaria/AzureRmPipeline-repo/main/azuredepoly.json'
+    overrideParameters: '-projectName sanproject'
+    deploymentMode: 'Incremental'
+    deploymentName: 'DeployPipelineTemplate'
+
+trigger:
+- main
+
+pool:
+  vmImage: ubuntu-latest
+
+steps:
+- script: echo Hello, world!
+  displayName: 'Run a one-line script'
+
